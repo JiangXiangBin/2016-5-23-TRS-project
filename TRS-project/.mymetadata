@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="TRS-project"
+  id="myeclipse.1463477106424"
+  context-root="/trs1"
+  j2ee-spec="5.0"
+  archive="TRS-project.war">
+  <attributes>
+    <attribute name="webrootdir" value="src/main/webapp" />
+  </attributes>
+</project-module>
+
