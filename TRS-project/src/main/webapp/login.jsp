@@ -203,32 +203,26 @@ body {
  -->
 
 
-	<form:form method="POST" commandName="student" 
-		action="/trs1/test/login.do">
+		<h2>Customer SignUp Form - JSR303 @Valid example</h2>
+
+	<form:form method="POST" commandName="student" action="/trs1/test/login.do">
+		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
-				<td>Enter your username:</td>
-				<td><form:input path="username" />
-				</td>
-				<td><form:errors path="username" cssStyle="color: #ff0000;" />
-				</td>
+				<td>Customer Name :</td>
+				<td><form:input path="username" /></td>
+				<td><form:errors path="username" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Enter your password:</td>
-				<td><form:input path="pwd" />
-				</td>
-				<td><form:errors path="pwd" cssStyle="color: #ff0000;" />
-				</td>
-			</tr>
-
-			<tr>
-				<td><input type="submit" name="submit" value="Submit">
-				</td>
+				<td>Customer Age :</td>
+				<td><form:input path="pwd" /></td>
+				<td><form:errors path="pwd" cssClass="error" /></td>
 			</tr>
 			<tr>
+				<td colspan="3"><input type="submit" /></td>
+			</tr>
 		</table>
 	</form:form>
-
 
 
 

@@ -34,10 +34,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+
+
 import entity.Student;
 import entity.Studentsecurity;
 import service.Serviceimpl;
@@ -85,42 +89,46 @@ public class Controller {
 	// return "login";
 	// }
 	// }
-     
-    private Map<String, Student> student = null;
-     
-    public Controller(){
-        student = new HashMap<String, Student>();
-    }
 	
 	
 	
 	/** 这里是使用hibernate.validator后台验证使用的代码 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String initForm(Model model) {
-		Student student = new Student();
-		
-		System.out.println("hah aaaaaaaaaaaa");
-		
-		model.addAttribute("student", student);
-
-		System.out.println("fffffffffffffffffffffff");
-		return "login";
-	}
-
-	// Click on the button to submit
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute("student") @Valid Student student, BindingResult result)
-	{
-		String returnVal = "done";
+	public String addCustomer(
+			@Valid Student student,
+			BindingResult result) {
 
-		if (result.hasErrors()) {
+		for (Object object : result.getAllErrors()) {
+			if (object instanceof FieldError) {
+				FieldError fieldError = (FieldError) object;
 
-			returnVal = "login";
+				System.out.println(fieldError.getField() + ":"
+						+ fieldError.getCode());
 
+			}
+
+			if (object instanceof ObjectError) {
+				ObjectError objectError = (ObjectError) object;
+
+			}
 		}
 
-		return returnVal;
+		if (result.hasErrors()) {
+			return "login";
+		} else {
+			return "done";
+		}
+
 	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String displayCustomerForm(ModelMap model) {
+
+		model.addAttribute("student", new Student());
+		return "login";
+
+	}
+
 
 	/** 注册 */
 	/**
