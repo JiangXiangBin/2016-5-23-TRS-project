@@ -1,31 +1,21 @@
 package entity;
-
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
-import org.springframework.stereotype.Component;
-
 /**
- * Student entity. @author MyEclipse Persistence Tools
+ * Student entity. @author 江想彬
  */
 
 public class Student implements java.io.Serializable {
 
 	// Fields
 	private Integer id;
-	@NotEmpty(message = "make sure name is not Empty")
+	
 	// make sure name is not empty
-	@Size(min = 5, max = 10, message = "Your name should be between 5 - 10 characters.")
+	@Size(min = 3, max = 20, message = "请输入3到20之间的数")
 	private String username;
-	@NotNull(message = "Please select a password")
-	@Length(min = 5, max = 10, message = "Password should be between 5 - 10 charactes")
+	
+	@Size( message = "请输入6到20之间的数")
 	private String pwd;
 	private Long telphone;
 	private String email;
@@ -74,7 +64,8 @@ public class Student implements java.io.Serializable {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	//@NotEmpty(message = "make sure name is not Empty")
+	//@Size(min = 5, max = 10, message = "Your name should be between 5 - 10 characters.")
 	public String getUsername() {
 		return this.username;
 	}
@@ -82,7 +73,8 @@ public class Student implements java.io.Serializable {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
+	//@NotEmpty(message = "make sure password is not Empty")
+	//@Size(min = 5, max = 10, message = "Password should be between 5 - 10 charactes")
 	public String getPwd() {
 		return this.pwd;
 	}

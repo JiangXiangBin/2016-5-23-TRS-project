@@ -39,13 +39,12 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import entity.Student;
 import entity.Studentsecurity;
 import service.Serviceimpl;
-
 @SuppressWarnings("unused")
 @org.springframework.stereotype.Controller
 @RequestMapping("/test")
@@ -89,46 +88,30 @@ public class Controller {
 	// return "login";
 	// }
 	// }
-	
-	
-	
+
 	/** 这里是使用hibernate.validator后台验证使用的代码 */
-	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	public String addCustomer(
-			@Valid Student student,
-			BindingResult result) {
-
-		for (Object object : result.getAllErrors()) {
-			if (object instanceof FieldError) {
-				FieldError fieldError = (FieldError) object;
-
-				System.out.println(fieldError.getField() + ":"
-						+ fieldError.getCode());
-
-			}
-
-			if (object instanceof ObjectError) {
-				ObjectError objectError = (ObjectError) object;
-
-			}
-		}
-
-		if (result.hasErrors()) {
-			return "login";
-		} else {
-			return "done";
-		}
-
-	}
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String displayCustomerForm(ModelMap model) {
-
-		model.addAttribute("student", new Student());
-		return "login";
-
-	}
-
+	
+	  @RequestMapping(value = "/",method=RequestMethod.GET)
+	    public ModelAndView user() {
+	        ModelAndView modelAndView = new ModelAndView("login");
+	        modelAndView.addObject("user", new Student());
+	 
+	        return modelAndView;
+	    }
+	 
+	    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
+	    public ModelAndView processUser(@Valid Student user, BindingResult result) {
+	        ModelAndView modelAndView = new ModelAndView("done");
+	        modelAndView.addObject("u", user);
+	        // 如果出现验证错误，则转到"userForm"视图
+	        if (result.hasErrors()) {
+	            modelAndView.setViewName("login");
+	        } else {
+	            modelAndView.setViewName("done");
+	        }
+	 
+	        return modelAndView;
+	    }
 
 	/** 注册 */
 	/**

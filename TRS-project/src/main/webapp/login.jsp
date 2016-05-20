@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" import="java.util.*" import="entity.Student"  contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
@@ -7,6 +7,7 @@
 			+ path + "/";
 %>
 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="mvc"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -31,6 +32,7 @@ body {
 
 .cc {
 	background-color: blue;
+	
 }
 
 #ul1 {
@@ -202,20 +204,19 @@ body {
 
  -->
 
-
+<!--  
 		<h2>Customer SignUp Form - JSR303 @Valid example</h2>
-
-	<form:form method="POST" commandName="student" action="/trs1/test/login.do">
+	<form:form method="POST" action="/trs1/test/login.do" modelAttribute="student">
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
 				<td>Customer Name :</td>
-				<td><form:input path="username" /></td>
+				
 				<td><form:errors path="username" cssClass="error" /></td>
 			</tr>
 			<tr>
 				<td>Customer Age :</td>
-				<td><form:input path="pwd" /></td>
+				<td><form:input path="username"/></td>
 				<td><form:errors path="pwd" cssClass="error" /></td>
 			</tr>
 			<tr>
@@ -223,10 +224,27 @@ body {
 			</tr>
 		</table>
 	</form:form>
-
-
-
-
-
+	-->
+	
+	   <h2>用户注册：</h2>
+    <mvc:form modelAttribute="user" action="/trs1/test/login.do">
+        <table>
+            <tr>
+                <td><mvc:label path="username">用户名：</mvc:label></td>
+                <td><mvc:input path="username" cssErrorClass="formFieldError" /></td>
+                <td><mvc:errors path="username" /></td>
+            </tr>
+ 
+            <tr>
+                <td><mvc:label path="pwd">密码：</mvc:label></td>
+                <td><mvc:password path="pwd"
+                        cssErrorClass="formFieldError" /></td>
+                <td><mvc:errors path="pwd" /></td>
+            </tr>
+            <tr>
+                <td colspan="3"><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </mvc:form>
 </body>
 </html>

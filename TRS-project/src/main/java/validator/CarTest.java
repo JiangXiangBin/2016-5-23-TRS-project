@@ -23,7 +23,7 @@ public class CarTest {
 		validator = factory.getValidator();
 	}
 
-	@Test
+	//@Test
 	public void manufacturerIsNull() {
 		//给其属性赋值
 		Car car = new Car(null, "DD-AB-123", 4);
@@ -48,7 +48,7 @@ public class CarTest {
 				.getMessage());
 	}
 
-//	@Test
+	@Test
 	public void licensePlateTooShort() {
 		Car car = new Car("Morris", "D", 4);
 
