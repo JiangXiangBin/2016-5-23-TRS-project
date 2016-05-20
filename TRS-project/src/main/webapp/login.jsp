@@ -204,19 +204,20 @@ body {
 
  -->
 
-<!--  
+
 		<h2>Customer SignUp Form - JSR303 @Valid example</h2>
 	<form:form method="POST" action="/trs1/test/login.do" modelAttribute="student">
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
 				<td>Customer Name :</td>
-				
+				<td><form:input path="username"/></td>
 				<td><form:errors path="username" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Customer Age :</td>
-				<td><form:input path="username"/></td>
+			
+				<td>Customer pwd :</td>
+				<td><form:input path="pwd"/></td>
 				<td><form:errors path="pwd" cssClass="error" /></td>
 			</tr>
 			<tr>
@@ -224,27 +225,7 @@ body {
 			</tr>
 		</table>
 	</form:form>
-	-->
-	
-	   <h2>用户注册：</h2>
-    <mvc:form modelAttribute="user" action="/trs1/test/login.do">
-        <table>
-            <tr>
-                <td><mvc:label path="username">用户名：</mvc:label></td>
-                <td><mvc:input path="username" cssErrorClass="formFieldError" /></td>
-                <td><mvc:errors path="username" /></td>
-            </tr>
- 
-            <tr>
-                <td><mvc:label path="pwd">密码：</mvc:label></td>
-                <td><mvc:password path="pwd"
-                        cssErrorClass="formFieldError" /></td>
-                <td><mvc:errors path="pwd" /></td>
-            </tr>
-            <tr>
-                <td colspan="3"><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
-    </mvc:form>
+
+
 </body>
 </html>

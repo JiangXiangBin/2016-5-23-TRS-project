@@ -2,20 +2,22 @@ package entity;
 import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 /**
- * Student entity. @author 江想彬
+ * Student entity. @author Jiang
  */
 
 public class Student implements java.io.Serializable {
 
 	// Fields
 	private Integer id;
-	
+	@NotEmpty(message="不能为空")
 	// make sure name is not empty
-	@Size(min = 3, max = 20, message = "请输入3到20之间的数")
+	@Size(min = 3, max = 6, message = "请输入3到6之间的数")
 	private String username;
-	
-	@Size( message = "请输入6到20之间的数")
+	@NotEmpty(message="不能为空")
+	@Size( message = "请输入6到12之间的数")
 	private String pwd;
 	private Long telphone;
 	private String email;

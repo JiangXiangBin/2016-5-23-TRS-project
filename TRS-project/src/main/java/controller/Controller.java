@@ -92,17 +92,20 @@ public class Controller {
 	/** 这里是使用hibernate.validator后台验证使用的代码 */
 	
 	  @RequestMapping(value = "/",method=RequestMethod.GET)
-	    public ModelAndView user() {
+	  
+	    public ModelAndView student() {
+		  
 	        ModelAndView modelAndView = new ModelAndView("login");
-	        modelAndView.addObject("user", new Student());
+	        
+	        modelAndView.addObject("student", new Student());
 	 
 	        return modelAndView;
 	    }
 	 
 	    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	    public ModelAndView processUser(@Valid Student user, BindingResult result) {
+	    public ModelAndView processStudent(@Valid Student student, BindingResult result) {
 	        ModelAndView modelAndView = new ModelAndView("done");
-	        modelAndView.addObject("u", user);
+	        modelAndView.addObject("s", student);
 	        // 如果出现验证错误，则转到"userForm"视图
 	        if (result.hasErrors()) {
 	            modelAndView.setViewName("login");
