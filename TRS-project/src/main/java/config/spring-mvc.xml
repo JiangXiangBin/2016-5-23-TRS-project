@@ -43,6 +43,7 @@
 			<mvc:mapping path="/**" />
 			<!-- 排除要拦截的地址 -->
 			<mvc:exclude-mapping path="/test/login.do" />
+			<mvc:exclude-mapping path="/test/login11.do" />
 			<mvc:exclude-mapping path="/test/findsonone.do" />
 			<mvc:exclude-mapping path="/test/findsontwo.do" />
 			<mvc:exclude-mapping path="/test/findnumble.do" />

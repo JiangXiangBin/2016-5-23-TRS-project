@@ -1,12 +1,11 @@
-<%@ page language="java" import="java.util.*" import="entity.Student"  contentType="text/html; charset=utf-8"
-	pageEncoding="utf-8"%>
+<%@ page language="java" import="java.util.*" import="entity.Student"
+	contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="mvc"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -32,7 +31,6 @@ body {
 
 .cc {
 	background-color: blue;
-	
 }
 
 #ul1 {
@@ -58,6 +56,7 @@ body {
 <script
 	src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 <script type="text/javascript">
+
 	function f1() {
 
 		var a = document.getElementById("d1").className = "c1";
@@ -107,11 +106,21 @@ body {
 							}
 						});
 			});
+			
 </script>
 </head>
 <body>
-	<!-- 
+
 	<form action="/trs1/test/login.do" method="post" id="form1">
+		<div>
+			<spring:hasBindErrors name="student1">
+				<ul>
+					<c:forEach items="${errors}" var="error" >
+						<li style="color: red;">${error.getDefaultMessage()}</li>
+					</c:forEach>
+				</ul>
+			</spring:hasBindErrors>
+		</div>
 		<div id="div1">
 			<table>
 
@@ -126,15 +135,14 @@ body {
 				<tr>
 					<td colspan="4"><label for="d1"></label>
 					</td>
+
 				</tr>
 				<tr>
 					<td>用户名:</td>
-					<td colspan="3"><input type="text" id="d1" name="name"
-						value="請輸入用戶名" onfocus="this.value='';this.className='cc'"
-						onblur="if(this.value==''){this.value='請輸入用戶名'};f1();" required
-						minlength="2" /></td>
-
-
+					<td colspan="3"><input type="text" id="d1" name="username"
+						value="${student.username}"
+						onfocus="this.value='';this.className='cc'" onblur="f1();"
+						required minlength="2" /></td>
 				</tr>
 
 				<tr />
@@ -148,8 +156,8 @@ body {
 				<tr>
 					<td>密&emsp;码:</td>
 					<td colspan="3"><input type="text" id="d2" name="pwd"
-						value="請輸入密碼" onfocus="this.value='';this.className='cc'"
-						onblur="if(this.value==''){this.value='請輸入密碼'};f2();" required
+						onfocus="this.value='';this.className='cc'"
+						onblur="f2();" required
 						minlength="5" /></td>
 					<td><span></span>
 					</td>
@@ -202,30 +210,33 @@ body {
 		</div>
 	</form>
 
- -->
 
 
-		<h2>Customer SignUp Form - JSR303 @Valid example</h2>
-	<form:form method="POST" action="/trs1/test/login.do" modelAttribute="student">
+	<!-- 
+	<h2>Student SignUp Form - JSR303 @Valid example</h2>
+	<form:form method="POST" action="/trs1/test/login.do" commandName="student"
+		>
+		 path="*"表示显示所有的错误 
 		<form:errors path="*" cssClass="errorblock" element="div" />
 		<table>
 			<tr>
-				<td>Customer Name :</td>
-				<td><form:input path="username"/></td>
-				<td><form:errors path="username" cssClass="error" /></td>
+				<td>Student UserName :</td>				
+				<td><form:errors path="username" cssClass="error" />
+				</td>
 			</tr>
 			<tr>
-			
-				<td>Customer pwd :</td>
-				<td><form:input path="pwd"/></td>
-				<td><form:errors path="pwd" cssClass="error" /></td>
+				<td>Student PassWord :</td>	
+			   
+				<td><form:errors path="pwd" cssClass="error" />
+				</td>
 			</tr>
 			<tr>
-				<td colspan="3"><input type="submit" /></td>
+				<td colspan="3"><input type="submit" />
+				</td>
 			</tr>
 		</table>
 	</form:form>
-
-
+	
+	 -->
 </body>
 </html>

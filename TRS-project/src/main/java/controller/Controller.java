@@ -36,6 +36,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,6 +46,7 @@ import org.springframework.web.servlet.ModelAndView;
 import entity.Student;
 import entity.Studentsecurity;
 import service.Serviceimpl;
+
 @SuppressWarnings("unused")
 @org.springframework.stereotype.Controller
 @RequestMapping("/test")
@@ -55,66 +57,78 @@ public class Controller {
 
 	/** 登陆 */
 
-	// @RequestMapping("/login.do")
-	// public String login(String name, String pwd, ModelMap map,
-	//
-	// HttpServletRequest request) {
-	// // 获取session
-	// HttpSession session = request.getSession();
-	// Student student = serviceimpl.login(name, pwd);
-	// // 判断用户名和密码是否正确，和是否为管理员
-	// if (student != null && "李四".equals(name) && "123456".equals(pwd)) {
-	// session.setAttribute("loginsessionone", "welcome to myeclipse");
-	// // 获取绝对路径
-	// String path = "/test/findall.do";
-	//
-	// return "redirect:" + path;
-	// // 判断用户名密码是否正确
-	// } else if (student != null) {
-	//
-	// // 绑定session的值
-	//
-	// session.setAttribute("loginsession", "hello world");
-	//
-	// // 转发
-	// map.addAttribute("success", student);
-	//
-	// return "success";
-	//
-	// } else {
-	// // 转发
-	// map.addAttribute("fail", "用户名或者密码错误");
-	//
-	// return "login";
-	// }
-	// }
+	@RequestMapping("/login.do")
+	public String login(@Valid Student student1, BindingResult result,
+			String username, String pwd, ModelMap map,
+			HttpServletRequest request) {
+		// 获取session
+		HttpSession session = request.getSession();
+		
+		Student student = serviceimpl.login(username, pwd);
+
+		// 如果出现验证错误，则转到"login"视图
+		if (result.hasErrors()) {
+
+			List<ObjectError> errors = result.getAllErrors();
+              
+			for (ObjectError error : errors) {
+				
+				System.out.println("错误是:" + error.getDefaultMessage());
+			}
+			request.setAttribute("errors", errors);
+
+			return "login";
+		} 
+		// 判断用户名和密码是否正确，和是否为管理员
+		if (student != null && "李四".equals(username) && "123456".equals(pwd)) {
+			session.setAttribute("loginsessionone", "welcome to myeclipse");
+			// 获取绝对路径
+			String path = "/test/findall.do";
+
+			return "redirect:" + path;
+			// 判断用户名密码是否正确
+		} else if (student != null) {
+
+			// 绑定session的值
+
+			session.setAttribute("loginsession", "hello world");
+
+			// 转发
+			map.addAttribute("success", student);
+
+			return "success";
+
+		} else {
+			// 转发
+			map.addAttribute("fail", "用户名或者密码错误");
+
+			return "login";
+		}
+	}
 
 	/** 这里是使用hibernate.validator后台验证使用的代码 */
-	
-	  @RequestMapping(value = "/",method=RequestMethod.GET)
-	  
-	    public ModelAndView student() {
-		  
-	        ModelAndView modelAndView = new ModelAndView("login");
-	        
-	        modelAndView.addObject("student", new Student());
-	 
-	        return modelAndView;
-	    }
-	 
-	    @RequestMapping(value = "/login.do", method = RequestMethod.POST)
-	    public ModelAndView processStudent(@Valid Student student, BindingResult result) {
-	        ModelAndView modelAndView = new ModelAndView("done");
-	        modelAndView.addObject("s", student);
-	        // 如果出现验证错误，则转到"userForm"视图
-	        if (result.hasErrors()) {
-	            modelAndView.setViewName("login");
-	        } else {
-	            modelAndView.setViewName("done");
-	        }
-	 
-	        return modelAndView;
-	    }
+
+//	@RequestMapping("/login11.do")
+//	public String processStudent(@Valid Student student, BindingResult result,
+//			HttpServletRequest request, String username, String pwd, Model model) {
+//
+//		// 如果出现验证错误，则转到"login"视图
+//		if (result.hasErrors()) {
+//
+//			List<ObjectError> errors = result.getAllErrors();
+//
+//			for (ObjectError error : errors) {
+//				System.out.println("错误是:" + error.getDefaultMessage());
+//			}
+//			request.setAttribute("errors", errors);
+//
+//			return "login";
+//		}
+//		// 获取绝对路径
+//		String path = "/test/login.do";
+//
+//		return "redirect:" + path;
+//	}
 
 	/** 注册 */
 	/**

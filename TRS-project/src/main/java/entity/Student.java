@@ -4,6 +4,7 @@ import java.util.Set;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 /**
  * Student entity. @author Jiang
  */
@@ -12,12 +13,12 @@ public class Student implements java.io.Serializable {
 
 	// Fields
 	private Integer id;
-	@NotEmpty(message="不能为空")
+	@NotEmpty(message="用户名不能为空")
 	// make sure name is not empty
-	@Size(min = 3, max = 6, message = "请输入3到6之间的数")
+	@Size(min = 2, max = 6,message="用户名个数必须在2到6位数之间")
 	private String username;
-	@NotEmpty(message="不能为空")
-	@Size( message = "请输入6到12之间的数")
+	@NotEmpty(message="密码不能为空")
+	@Size(min=6,max=12,message="密码必须在6到12位数之间")
 	private String pwd;
 	private Long telphone;
 	private String email;
